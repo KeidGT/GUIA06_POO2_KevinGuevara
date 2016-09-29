@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core" 
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough" 
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <ui:composition template="WEB-INF/resources/fragmentos/comun.xhtml">
+        <!-- Título de la página -->
+        <ui:param name="pageTitl" value="GT Developer"/>
+        <ui:param name="pageNomb" value="Alumnos"/>
+        <ui:param name="pageDesc" value="Mantenimiento de alumnos"/>
+        <!-- Activar el link del menú -->
+        <ui:param name="actiMant" value="active"/>
+        <ui:param name="actiGrup" value="active"/>
+        <!-- Scripts personalizados -->
+        <ui:define name="CustomScripts">
+            <h:outputScript library="js" name="custom/mantenimientos.js"/>
+            <h:outputStylesheet library="css" name="custom/style.css" />
+        </ui:define>
+        <!-- Elementos propios del boby -->
+        <ui:define name="body">
+            <div class="row col-md-12">
+                <div class="col-md-4 col-xs-4" id="divFrm">
+                <div class="panel panel-default">
+                    <div class="box-header">Formulario</div>
+                    <div class="box-body">
+                        <h:form>
+                            <!--Form exclusivo para los remotos-->
+                            <p:remoteCommand name="consObje" actionListener="#{gruposAlumnosBean.cons()}" update=":FormRegi" 
+                                             oncomplete="INIT_OBJE();" global="true"/>
+                            <p:remoteCommand name="elimObje" actionListener="#{gruposAlumnosBean.elim()}" update=":FormRegi :ContRegi" 
+                                             oncomplete="INIT_OBJE();"  global="true"/>
+                        </h:form>
+                        <h:form id="FormRegi">
+                            <h:inputHidden id="codi" value="#{gruposAlumnosBean.objeGrupAlum.codiGrupAlum}" />
+                            <div class="input-group col-xs-12">
+                                <h:outputLabel  for="grup" value="Grupo: "/>
+                                <h:selectOneMenu id="grup" value="#{gruposAlumnosBean.objeGrupAlum.codiGrup}" class="form-control">
+                                    <f:selectItem pt:data-hidden="true" itemLabel="Seleccione..."/>
+                                    <f:selectItems value="#{gruposBean.listGrup}" var="lst" itemLabel="#{lst.nombGrup}" itemValue="#{lst}"/>
+                                    <f:converter converterId="PooConv"/>
+                                </h:selectOneMenu>
+                                <h:message for="grup" errorClass="field-error" />
+                            </div>
+                            <div class="input-group col-xs-12">
+                                <h:outputLabel  for="alum" value="Alumno: "/>
+                                <h:selectOneMenu id="alum" value="#{gruposAlumnosBean.objeGrupAlum.codiAlum}" class="form-control">
+                                    <f:selectItem pt:data-hidden="true" itemLabel="Seleccione..."/>
+                                    <f:selectItems value="#{alumnosBean.listAlum}" var="lst2" itemLabel="#{lst2.nombAlum} #{lst2.apelAlum}" itemValue="#{lst2}"/>
+                                    <f:converter converterId="PooConv"/>
+                                </h:selectOneMenu>
+                                <h:message for="alum" errorClass="field-error" />
+                            </div>
+                            <div class="input-group col-xs-12">
+                                <h:outputLabel  for="esta" value="Estado: "/>
+                                <h:selectOneMenu id="esta" value="#{gruposAlumnosBean.objeGrupAlum.estaGrupAlum}" class="form-control">
+                                    <f:selectItem pt:data-hidden="true" itemLabel="Seleccione..."/>
+                                    <f:selectItem itemValue="1" itemLabel="Activo"/>
+                                    <f:selectItem itemValue="0" itemLabel="Inactivo"/>
+                                </h:selectOneMenu>
+                                <h:message for="esta" errorClass="field-error" />
+                            </div>
+                            <br/>
+                            <div class="">
+                                <div class="r-row">
+                                    <div class="r-col6">
+                                        <h:commandLink id="btonCanc" class="btn cancel-button">
+                                            <p:ajax listener="#{gruposAlumnosBean.limpForm()}" process="@form" update="@form" global="true"/>
+                                            <i class="fa fa-mail-forward"/> Cancelar
+                                        </h:commandLink>
+                                    </div>
+                                    <div class="r-col6">
+                                        <h:commandLink id="btonGuar" class="btn confirm-button" rendered="#{gruposAlumnosBean.guardar}">
+                                            <p:ajax listener="#{gruposAlumnosBean.guar()}" process="@form" update="@form :ContRegi" oncomplete="INIT_OBJE();" />
+                                            <i class="fa fa-plus"/> Guardar
+                                        </h:commandLink>
+                                    </div>
+                                </div>
+                                <div class="r-row">
+                                    <div class="r-col6">
+                                      <h:commandLink id="btonModi" class="btn update-button" rendered="#{!gruposAlumnosBean.guardar}">
+                                        <p:ajax listener="#{gruposAlumnosBean.modi()}" process="@form" update="@form :ContRegi" oncomplete="INIT_OBJE();" />
+                                        <i class="fa fa-edit"/> Modificar
+                                    </h:commandLink>  
+                                    </div>
+                                    <div class="r-col6">
+                                        <h:outputLink id="btonElim" class="btn delete-button" rendered="#{!gruposAlumnosBean.guardar}" 
+                                        pt:data-toggle="confirmation" pt:data-btn-ok-label="Sí" pt:data-btn-ok-icon="fa fa-times"
+                                        pt:data-btn-ok-class="btn delete-button btn-xs medium-button" pt:data-btn-cancel-label="No" pt:data-btn-cancel-icon="fa fa-mail-forward"
+                                        pt:data-btn-cancel-class="btn cancel-button btn-xs medium-button" pt:data-title="¿Esta seguro que desea eliminar?">
+                                        <i class="fa fa-times"/> Eliminar
+                                    </h:outputLink>
+                                    </div>
+                                </div>
+                            </div>
+                        </h:form>
+                    </div>
+                </div>
+            </div>
+                <div class="col-md-8 col-xs-8" id="divTbl">
+                <div class="panel panel-default">
+                    <div class="box-header">Tabla de Datos</div>
+                    <div class="box-body">
+                        <h:panelGroup id="ContRegi">
+                            <h:dataTable pt:data-id="TablRegi" id="TablRegi" value="#{gruposAlumnosBean.listGrupAlum}"
+                                        var="fila" class="boottable" pt:data-toolbar="#toolbar"
+                                        styleClass="table-hover table-bordered table-condensed table-striped table-responsive"
+                                        pt:data-show-refresh="false" pt:data-show-toggle="false" pt:data-show-columns="false" 
+                                        pt:data-search="true" pt:data-pagination="true" pt:data-page-list="[5, 10, 20, 50]"
+                                        pt:data-click-to-select="true"  pt:data-select-item-name="radio"
+                                        pt:data-single-select="true">                                
+                               <h:column pt:data-field="state" pt:data-checkbox="true">
+                               </h:column>
+                               <h:column pt:data-align="right" pt:data-sortable="true" pt:data-field="id">
+                                   <f:facet name="header">Código</f:facet>
+                                   <h:outputText value="#{fila.codiGrupAlum}"/>
+                               </h:column>
+                               <h:column pt:data-sortable="true" pt:data-field="nomb">
+                                   <f:facet name="header">Alumno</f:facet>
+                                   <h:outputText value="#{fila.codiAlum.nombAlum.concat(' ').concat(fila.codiAlum.apelAlum)}"/>   
+                               </h:column>
+                               <h:column pt:data-sortable="true">
+                                   <f:facet name="header">Grupo</f:facet>
+                                   <h:outputText value="#{fila.codiGrup.nombGrup}"/>
+                               </h:column>
+                               <h:column pt:data-sortable="true">
+                                   <f:facet name="header">Estado</f:facet> 
+                                   <h:panelGroup class="label label-success" rendered="#{fila.estaGrupAlum eq '1'}">
+                                       <i class="fa fa-unlock"/> Activo</h:panelGroup>
+                                   <h:panelGroup class="label label-danger" rendered="#{fila.estaGrupAlum ne '1'}">
+                                       <i class="fa fa-lock"/> Inactivo</h:panelGroup>
+                               </h:column>
+                            </h:dataTable>
+                        </h:panelGroup>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </ui:define>
+    </ui:composition>
+</html>

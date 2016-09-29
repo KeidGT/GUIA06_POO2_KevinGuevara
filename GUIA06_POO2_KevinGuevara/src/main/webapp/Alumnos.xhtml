@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core" 
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough" 
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <ui:composition template="WEB-INF/resources/fragmentos/comun.xhtml">
+        <!-- Título de la página -->
+        <ui:param name="pageTitl" value="GT Developer"/>
+        <ui:param name="pageNomb" value="Alumnos"/>
+        <ui:param name="pageDesc" value="Mantenimiento de alumnos"/>
+        <!-- Activar el link del menú -->
+        <ui:param name="actiMant" value="active"/>
+        <ui:param name="actiAlum" value="active"/>
+        <!-- Scripts personalizados -->
+        <ui:define name="CustomScripts">
+            <h:outputScript library="js" name="custom/mantenimientos.js"/>
+            <h:outputStylesheet library="css" name="custom/style.css" />
+        </ui:define>
+        <!-- Elementos propios del boby -->
+        <ui:define name="body">
+            <div class="row col-md-12">
+                <div class="col-md-4 col-xs-4" id="divFrm">
+                <div class="panel panel-default">
+                    <div class="box-header">Formulario</div>
+                    <div class="box-body">
+                        <h:form>
+                            <!--Form exclusivo para los remotos-->
+                            <p:remoteCommand name="consObje" actionListener="#{alumnosBean.cons()}" update=":FormRegi" 
+                                             oncomplete="INIT_OBJE();" global="true"/>
+                            <p:remoteCommand name="elimObje" actionListener="#{alumnosBean.elim()}" update=":FormRegi :ContRegi" 
+                                             oncomplete="INIT_OBJE();"  global="true"/>
+                        </h:form>
+                        <h:form id="FormRegi">
+                            <h:inputHidden id="codi" value="#{alumnosBean.objeAlum.codiAlum}" />
+                            <div class="input-group col-xs-12">
+                                <h:outputLabel  for="nomb" value="Nombre: "/>
+                                <h:inputText id="nomb" value="#{alumnosBean.objeAlum.nombAlum}" class="form-control" />
+                                <h:message for="nomb" errorClass="field-error" />
+                            </div>
+                            <div class="input-group col-xs-12">
+                                <h:outputLabel  for="apel" value="Apellido: "/>
+                                <h:inputText id="apel" value="#{alumnosBean.objeAlum.apelAlum}" class="form-control" />
+                                <h:message for="apel" errorClass="field-error" />
+                            </div>
+                            <div class="input-group col-xs-12">
+                                <h:outputLabel  for="fechNaci" value="Fecha Nacimiento: "/>
+                                <h:inputText id="fechNaci" value="#{alumnosBean.objeAlum.fechNaciAlum}" class="form-control">
+                                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                                </h:inputText>
+                                <h:message for="fechNaci" errorClass="field-error" />
+                            </div>
+                            <div class="input-group col-xs-12">
+                                <h:outputLabel  for="mail" value="E-mail: "/>
+                                <h:inputText id="mail" value="#{alumnosBean.objeAlum.mailAlum}" class="form-control" />
+                                <h:message for="mail" errorClass="field-error" />
+                            </div>
+                            <div class="input-group col-xs-12">
+                                <h:outputLabel  for="tele" value="Teléfono: "/>
+                                <h:inputText id="tele" value="#{alumnosBean.objeAlum.teleAlum}" class="form-control" />
+                                <h:message for="tele" errorClass="field-error" />
+                            </div>
+                            <div class="input-group col-xs-12">
+                                <h:outputLabel  for="dire" value="Dirección: "/>
+                                <h:inputText id="dire" value="#{alumnosBean.objeAlum.direAlum}" class="form-control" />
+                                <h:message for="dire" errorClass="field-error" />
+                            </div>
+                            <div class="input-group col-xs-12">
+                                <h:outputLabel  for="gene" value="Género: "/>
+                                <h:selectOneMenu id="gene" value="#{alumnosBean.objeAlum.geneAlum}" class="form-control">
+                                    <f:selectItem pt:data-hidden="true" itemLabel="Seleccione..."/>
+                                    <f:selectItem itemValue="M" itemLabel="Masculino"/>
+                                    <f:selectItem itemValue="F" itemLabel="Femenino"/>
+                                </h:selectOneMenu>
+                                <h:message for="gene" errorClass="field-error" />
+                            </div>
+                            <br/>
+                            <div class="">
+                                <div class="r-row">
+                                    <div class="r-col6">
+                                        <h:commandLink id="btonCanc" class="btn cancel-button">
+                                            <p:ajax listener="#{alumnosBean.limpForm()}" process="@form" update="@form" global="true"/>
+                                            <i class="fa fa-mail-forward"/> Cancelar
+                                        </h:commandLink>
+                                    </div>
+                                    <div class="r-col6">
+                                        <h:commandLink id="btonGuar" class="btn confirm-button" rendered="#{alumnosBean.guardar}">
+                                            <p:ajax listener="#{alumnosBean.guar()}" process="@form" update="@form :ContRegi" oncomplete="INIT_OBJE();" />
+                                            <i class="fa fa-plus"/> Guardar
+                                        </h:commandLink>
+                                    </div>
+                                </div>
+                                <div class="r-row">
+                                    <div class="r-col6">
+                                      <h:commandLink id="btonModi" class="btn update-button" rendered="#{!alumnosBean.guardar}">
+                                        <p:ajax listener="#{alumnosBean.modi()}" process="@form" update="@form :ContRegi" oncomplete="INIT_OBJE();" />
+                                        <i class="fa fa-edit"/> Modificar
+                                    </h:commandLink>  
+                                    </div>
+                                    <div class="r-col6">
+                                        <h:outputLink id="btonElim" class="btn delete-button" rendered="#{!alumnosBean.guardar}" 
+                                        pt:data-toggle="confirmation" pt:data-btn-ok-label="Sí" pt:data-btn-ok-icon="fa fa-times"
+                                        pt:data-btn-ok-class="btn delete-button btn-xs medium-button" pt:data-btn-cancel-label="No" pt:data-btn-cancel-icon="fa fa-mail-forward"
+                                        pt:data-btn-cancel-class="btn cancel-button btn-xs medium-button" pt:data-title="¿Esta seguro que desea eliminar?">
+                                        <i class="fa fa-times"/> Eliminar
+                                    </h:outputLink>
+                                    </div>
+                                </div>
+                            </div>
+                        </h:form>
+                    </div>
+                </div>
+            </div>
+                <div class="col-md-8 col-xs-8" id="divTbl">
+                <div class="panel panel-default">
+                    <div class="box-header">Tabla de Datos</div>
+                    <div class="box-body">
+                        <h:panelGroup id="ContRegi">
+                            <h:dataTable pt:data-id="TablRegi" id="TablRegi" value="#{alumnosBean.listAlum}"
+                                        var="fila" class="boottable" pt:data-toolbar="#toolbar"
+                                        styleClass="table-hover table-bordered table-condensed table-striped table-responsive"
+                                        pt:data-show-refresh="false" pt:data-show-toggle="false" pt:data-show-columns="false" 
+                                        pt:data-search="true" pt:data-pagination="true" pt:data-page-list="[5, 10, 20, 50]"
+                                        pt:data-click-to-select="true"  pt:data-select-item-name="radio"
+                                        pt:data-single-select="true">                                
+                               <h:column pt:data-field="state" pt:data-checkbox="true">
+                               </h:column>
+                               <h:column pt:data-align="right" pt:data-sortable="true" pt:data-field="id">
+                                   <f:facet name="header">Código</f:facet>
+                                   <h:outputText value="#{fila.codiAlum}"/>
+                               </h:column>
+                               <h:column pt:data-sortable="true" pt:data-field="nomb">
+                                   <f:facet name="header">Nombre</f:facet>
+                                   <h:outputText value="#{fila.nombAlum.concat(' ').concat(fila.apelAlum)}"/>   
+                               </h:column>
+                               <h:column pt:data-sortable="true">
+                                   <f:facet name="header">Fecha Nac.</f:facet>
+                                   <h:outputText value="#{fila.fechNaciAlum}">
+                                       <f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT-6"/>
+                                   </h:outputText>                            
+                               </h:column>
+                               <h:column pt:data-sortable="true">
+                                   <f:facet name="header">Email</f:facet>
+                                   <h:outputText value="#{fila.mailAlum}"/>
+                               </h:column>
+                               <h:column pt:data-sortable="true">
+                                   <f:facet name="header">Teléfono</f:facet> 
+                                   <h:outputText value="#{fila.teleAlum}"/>
+                               </h:column>
+                               <h:column pt:data-sortable="true">
+                                   <f:facet name="header">Dirección</f:facet> 
+                                   <h:outputText value="#{fila.direAlum}"/>
+                               </h:column>
+                            </h:dataTable>
+                        </h:panelGroup>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </ui:define>
+    </ui:composition>
+</html>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <ui:composition>
+        <aside class="main-sidebar">
+            <!-- sidebar: style can be found in sidebar.less -->
+            <section class="sidebar">
+                <!-- Sidebar user panel -->
+                <div class="user-panel">
+                    <div class="pull-left image">
+                        <img src="#{resource['images/Pikachu2.jpg']}" class="img-circle" alt="User Image"/>
+                    </div>
+                    <div class="pull-left info">
+                        <p>Kevin Guevara</p>
+                        <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                    </div>
+                </div>
+                <!-- sidebar menu: : style can be found in sidebar.less -->
+                <ul class="sidebar-menu">
+                    <li class="treeview #{actiIndex}">
+                        <h:link outcome="index">
+                            <i class="fa fa-home"></i> <span>Home</span>
+                        </h:link>
+                    </li>
+                    <!--li class="treeview #{actiMant}"-->
+                    <li class="treeview active">
+                        <a href="#">
+                            <i class="fa fa-dashboard"></i> <span>Mantenimientos</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li class="#{actiAlum}"><h:link outcome="Alumnos"><i class="fa fa-user"></i> Alumnos </h:link></li>
+                            <li class="#{actiProf}"><h:link outcome="Profesores"><i class="fa fa-user"></i> Profesores </h:link></li>
+                            <li class="#{actiCurs}"><h:link outcome="Cursos"><i class="fa fa-list-alt"></i> Cursos </h:link></li>
+                            <li class="#{actiGrupos}"><h:link outcome="Grupos"><i class="fa fa-list-alt"></i> Grupos </h:link></li>
+                            <li class="#{actiGrup}"><h:link outcome="GrupoAlumnos"><i class="fa fa-users"></i> Alumnos en Grupos </h:link></li>
+                        </ul>
+                    </li>
+                </ul>
+            </section>
+            <!-- /.sidebar -->
+        </aside>
+    </ui:composition>
+</html>

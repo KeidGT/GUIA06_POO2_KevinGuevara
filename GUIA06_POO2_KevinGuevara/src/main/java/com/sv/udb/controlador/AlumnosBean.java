@@ -14,10 +14,6 @@ import javax.ejb.EJB;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
 import org.primefaces.context.RequestContext;
 
 /**
@@ -28,13 +24,11 @@ import org.primefaces.context.RequestContext;
 @ViewScoped
 public class AlumnosBean implements Serializable{
     @EJB
-    private AlumnosFacadeLocal FCDEAlum;
+    private AlumnosFacadeLocal FCDEAlum;    
     private Alumnos objeAlum;
-    private boolean guardar;
-    private String pool;
     private List<Alumnos> listAlum;
-    private int codigo;
-    
+    private boolean guardar;
+
     public Alumnos getObjeAlum() {
         return objeAlum;
     }
@@ -43,24 +37,12 @@ public class AlumnosBean implements Serializable{
         this.objeAlum = objeAlum;
     }
 
-    public List<Alumnos> getListAlum() {
-        return listAlum;
-    }
-
-    public void setListAlum(List<Alumnos> listAlum) {
-        this.listAlum = listAlum;
-    }
-
     public boolean isGuardar() {
         return guardar;
     }
 
-    public int getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
+    public List<Alumnos> getListAlum() {
+        return listAlum;
     }
     
     /**
@@ -73,16 +55,16 @@ public class AlumnosBean implements Serializable{
     @PostConstruct
     public void init()
     {
-        this.objeAlum = new Alumnos();
-        this.guardar = true;
-        this.pool = "jpool";
-        consTodo();
+        this.limpForm();
+        this.consTodo();
     }
+    
     public void limpForm()
     {
         this.objeAlum = new Alumnos();
         this.guardar = true;        
     }
+    
     public void guar()
     {
         RequestContext ctx = RequestContext.getCurrentInstance(); //Capturo el contexto de la página
@@ -91,20 +73,19 @@ public class AlumnosBean implements Serializable{
             FCDEAlum.create(this.objeAlum);
             this.listAlum.add(this.objeAlum);
             this.limpForm();
-            ctx.execute("setMessage('MESS_SUCC', 'Datos guardados')");
+            ctx.execute("setMessage('MESS_SUCC', 'Atención', 'Datos guardados')");
         }
         catch(Exception ex)
         {
-            ctx.execute("setMessage('MESS_ERRO', 'Error al guardar ')");
-            System.out.println("ERROR: " +ex);
-            //tx.rollback();
-            //ex.printStackTrace();
+            ctx.execute("setMessage('MESS_ERRO', 'Atención', 'Error al guardar ')");
         }
         finally
-        {            
+        {
+            
         }
     }
-    public void modificar()
+    
+    public void modi()
     {
         RequestContext ctx = RequestContext.getCurrentInstance(); //Capturo el contexto de la página
         try
@@ -112,18 +93,19 @@ public class AlumnosBean implements Serializable{
             this.listAlum.remove(this.objeAlum); //Limpia el objeto viejo
             FCDEAlum.edit(this.objeAlum);
             this.listAlum.add(this.objeAlum); //Agrega el objeto modificado
-            ctx.execute("setMessage('MESS_SUCC', 'Datos modificados')");
-            consTodo();
-            this.objeAlum = new Alumnos(); // Limpiar
+            ctx.execute("setMessage('MESS_SUCC', 'Atención', 'Datos Modificados')");
         }
         catch(Exception ex)
         {
-            ctx.execute("setMessage('MESS_ERRO', 'Error al modificar ')");
-            System.out.println("ERROR: " +ex);
-            //tx.rollback();
+            ctx.execute("setMessage('MESS_ERRO', 'Atención', 'Error al modificar ')");
+        }
+        finally
+        {
+            
         }
     }
-    public void eliminar()
+    
+    public void elim()
     {
         RequestContext ctx = RequestContext.getCurrentInstance(); //Capturo el contexto de la página
         try
@@ -131,15 +113,18 @@ public class AlumnosBean implements Serializable{
             FCDEAlum.remove(this.objeAlum);
             this.listAlum.remove(this.objeAlum);
             this.limpForm();
-                ctx.execute("setMessage('MESS_SUCC', 'Datos eliminados')");
-                consTodo();
-                this.objeAlum = new Alumnos(); // Limpiar
-            
-        }catch(Exception e){
-            ctx.execute("setMessage('MESS_ERRO', 'Error al eliminar ')");
+            ctx.execute("setMessage('MESS_SUCC', 'Atención', 'Datos Eliminados')");
+        }
+        catch(Exception ex)
+        {
+            ctx.execute("setMessage('MESS_ERRO', 'Atención', 'Error al eliminar')");
+        }
+        finally
+        {
             
         }
     }
+    
     public void consTodo()
     {
         try
@@ -155,24 +140,25 @@ public class AlumnosBean implements Serializable{
             
         }
     }
-    public void cons(){
-        
+    
+    public void cons()
+    {
         RequestContext ctx = RequestContext.getCurrentInstance(); //Capturo el contexto de la página
-        //int codi = Integer.parseInt(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("codiAlumPara"));
+        int codi = Integer.parseInt(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("codiObjePara"));
         try
         {
-            this.objeAlum = FCDEAlum.find(codigo);
+            this.objeAlum = FCDEAlum.find(codi);
             this.guardar = false;
-            ctx.execute("setMessage('MESS_SUCC', 'Consultado a " + 
+            ctx.execute("setMessage('MESS_SUCC', 'Atención', 'Consultado a " + 
                     String.format("%s %s", this.objeAlum.getNombAlum(), this.objeAlum.getApelAlum()) + "')");
         }
         catch(Exception ex)
         {
-            ctx.execute("setMessage('MESS_ERRO', 'Error al consultar')");
+            ctx.execute("setMessage('MESS_ERRO', 'Atención', 'Error al consultar')");
         }
         finally
         {
             
-        }           
+        }
     }
 }

@@ -1,0 +1,131 @@
+.full-width{
+    width: 100%;
+}
+.material-box{
+    border: none;
+    border-radius: 2px;
+    box-shadow: 1px 1px 1px 2px rgba(0, 0, 0, 0.34);
+}
+.box-header{
+    background: #444f54;
+    color: #fff;
+    border-radius: 3px 3px 0px 0px;
+    border-top: 1.5px solid #2e373a;
+    box-shadow: inset 0px 1.5px 0px 0px #758991,
+                2px 0px 1px 0px rgba(0, 0, 0, 0.3);
+    font-weight: bold;
+}
+.box-body{
+    background: #fff;
+    box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, 0.3);
+    border-radius: 0px;
+    font-weight: bold;
+}
+.confirm-button{
+    background: #009688;
+    color: #fff;
+}
+.cancel-button{
+    background: #E7E7E7;
+    color: #384247;
+}
+.update-button{
+    background: #367FA9;
+    color: #FFF;
+}
+.delete-button{
+    background: #b71c1c;
+    color: #FFF;
+}
+.confirm-button, .cancel-button, .delete-button, .update-button{
+    font-weight: bold;
+    border-radius: 0px;
+    border: 0px;
+    width: 100%;
+}
+.medium-button{
+    width: 48%;
+    margin: 1%;
+}
+.confirm-button:hover{
+    background: #fff;
+    box-shadow: inset 1px 1px 0px 0px #009688,
+                inset -1px -1px 0px 0px #009688;
+    color: #009688;
+} 
+.cancel-button:hover{
+    background: #fff;
+    box-shadow: inset 1px 1px 0px 0px #384247,
+                inset -1px -1px 0px 0px #384247;
+    color: #384247;
+}
+.update-button:hover{
+    background: #fff;
+    box-shadow: inset 1px 1px 0px 0px #0086b6,
+                inset -1px -1px 0px 0px #0086b6;
+    color: #0086b6;
+}
+.delete-button:hover, .delete-button:active{
+    background: #fff;
+    box-shadow: inset 1px 1px 0px 0px #b71c1c,
+                inset -1px -1px 0px 0px #b71c1c;
+    color: #b71c1c;
+}
+.hidden{
+    display: none;
+}
+.r-row{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    height: 30px;
+    padding: 0px;
+    margin-left: 1%;
+}
+.r-col6{
+    width: 46.8%;
+    margin-left: 1%;
+    margin-right: 1%;
+    display: inline-block;
+    overflow: hidden;
+}
+.GT-logo{
+    text-shadow: rgb(48, 55, 59) 0px 0px 0px, 
+        rgb(48, 56, 60) 1px 1px 0px, 
+        rgb(49, 57, 61) 2px 2px 0px, 
+        rgb(50, 58, 61) 3px 3px 0px, 
+        rgb(50, 59, 62) 4px 4px 0px, 
+        rgb(51, 59, 63) 5px 5px 0px, 
+        rgb(52, 60, 64) 6px 6px 0px, 
+        rgb(53, 61, 65) 7px 7px 0px, 
+        rgb(53, 62, 66) 8px 8px 0px, 
+        rgb(54, 63, 67) 9px 9px 0px, 
+        rgb(55, 63, 67) 10px 10px 0px, 
+        rgb(55, 64, 68) 11px 11px 0px, 
+        rgb(56, 65, 69) 12px 12px 0px, 
+        rgb(57, 66, 70) 13px 13px 0px, 
+        rgb(57, 67, 71) 14px 14px 0px, 
+        rgb(58, 68, 72) 15px 15px 0px, 
+        rgb(59, 68, 73) 16px 16px 0px, 
+        rgb(60, 69, 74) 17px 17px 0px, 
+        rgb(60, 70, 74) 18px 18px 0px, 
+        rgb(61, 71, 75) 19px 19px 0px, 
+        rgb(62, 72, 76) 20px 20px 0px, 
+        rgb(62, 72, 77) 21px 21px 0px, 
+        rgb(63, 73, 78) 22px 22px 0px, 
+        rgb(64, 74, 79) 23px 23px 0px, 
+        rgb(64, 75, 80) 24px 24px 0px, 
+        rgb(65, 76, 81) 25px 25px 0px, 
+        rgb(66, 77, 81) 26px 26px 0px, 
+        rgb(67, 77, 82) 27px 27px 0px, 
+        rgb(67, 78, 83) 28px 28px 0px; 
+    font-size: 20px; 
+    color: rgb(255, 255, 255);
+    background-color: rgb(68, 79, 84);
+    line-height: 50px; 
+    border-radius: 0%; 
+    text-align: center;
+    margin: 0 auto;
+}
+.GT-logo:hover{
+   
+}

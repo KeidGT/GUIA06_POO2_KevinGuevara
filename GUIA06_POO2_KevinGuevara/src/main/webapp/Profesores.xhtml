@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core" 
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough" 
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <ui:composition template="WEB-INF/resources/fragmentos/comun.xhtml">
+        <!-- Título de la página -->
+        <ui:param name="pageTitl" value="GT Developer"/>
+        <ui:param name="pageNomb" value="Alumnos"/>
+        <ui:param name="pageDesc" value="Mantenimiento de alumnos"/>
+        <!-- Activar el link del menú -->
+        <ui:param name="actiMant" value="active"/>
+        <ui:param name="actiProf" value="active"/>
+        <!-- Scripts personalizados -->
+        <ui:define name="CustomScripts">
+            <h:outputScript library="js" name="custom/mantenimientos.js"/>
+            <h:outputStylesheet library="css" name="custom/style.css" />
+        </ui:define>
+        <!-- Elementos propios del boby -->
+        <ui:define name="body">
+            <div class="row col-md-12">
+                <div class="col-md-4 col-xs-4" id="divFrm">
+                <div class="panel panel-default">
+                    <div class="box-header">Formulario</div>
+                    <div class="box-body">
+                        <h:form>
+                            <!--Form exclusivo para los remotos-->
+                            <p:remoteCommand name="consObje" actionListener="#{profesoresBean.cons()}" update=":FormRegi" 
+                                             oncomplete="INIT_OBJE();" global="true"/>
+                            <p:remoteCommand name="elimObje" actionListener="#{profesoresBean.elim()}" update=":FormRegi :ContRegi" 
+                                             oncomplete="INIT_OBJE();"  global="true"/>
+                        </h:form>
+                        <h:form id="FormRegi">
+                            <h:inputHidden id="codi" value="#{profesoresBean.objeprof.codiProf}" />
+                            <div class="input-group col-xs-12">
+                                <h:outputLabel  for="nomb" value="Nombre: "/>
+                                <h:inputText id="nomb" value="#{profesoresBean.objeprof.nombProf}" class="form-control" />
+                                <h:message for="nomb" errorClass="field-error" />
+                            </div>
+                            <div class="input-group col-xs-12">
+                                <h:outputLabel  for="apel" value="Apellido: "/>
+                                <h:inputText id="apel" value="#{profesoresBean.objeprof.apelProf}" class="form-control" />
+                                <h:message for="apel" errorClass="field-error" />
+                            </div>
+                            <div class="input-group col-xs-12">
+                                <h:outputLabel  for="mail" value="E-mail: "/>
+                                <h:inputText id="mail" value="#{profesoresBean.objeprof.mailProf}" class="form-control" />
+                                <h:message for="mail" errorClass="field-error" />
+                            </div>
+                            <div class="input-group col-xs-12">
+                                <h:outputLabel  for="tele" value="Teléfono: "/>
+                                <h:inputText id="tele" value="#{profesoresBean.objeprof.teleProf}" class="form-control" />
+                                <h:message for="tele" errorClass="field-error" />
+                            </div>
+                            <div class="input-group col-xs-12">
+                                <h:outputLabel  for="dire" value="Dirección: "/>
+                                <h:inputText id="dire" value="#{profesoresBean.objeprof.direPro}" class="form-control" />
+                                <h:message for="dire" errorClass="field-error" />
+                            </div>
+                            <br/>
+                            <div class="">
+                                <div class="r-row">
+                                    <div class="r-col6">
+                                        <h:commandLink id="btonCanc" class="btn cancel-button">
+                                            <p:ajax listener="#{profesoresBean.limpForm()}" process="@form" update="@form" global="true"/>
+                                            <i class="fa fa-mail-forward"/> Cancelar
+                                        </h:commandLink>
+                                    </div>
+                                    <div class="r-col6">
+                                        <h:commandLink id="btonGuar" class="btn confirm-button" rendered="#{profesoresBean.guardar}">
+                                            <p:ajax listener="#{profesoresBean.guar()}" process="@form" update="@form :ContRegi" oncomplete="INIT_OBJE();" />
+                                            <i class="fa fa-plus"/> Guardar
+                                        </h:commandLink>
+                                    </div>
+                                </div>
+                                <div class="r-row">
+                                    <div class="r-col6">
+                                      <h:commandLink id="btonModi" class="btn update-button" rendered="#{!profesoresBean.guardar}">
+                                        <p:ajax listener="#{profesoresBean.modi()}" process="@form" update="@form :ContRegi" oncomplete="INIT_OBJE();" />
+                                        <i class="fa fa-edit"/> Modificar
+                                    </h:commandLink>  
+                                    </div>
+                                    <div class="r-col6">
+                                        <h:outputLink id="btonElim" class="btn delete-button" rendered="#{!profesoresBean.guardar}" 
+                                        pt:data-toggle="confirmation" pt:data-btn-ok-label="Sí" pt:data-btn-ok-icon="fa fa-times"
+                                        pt:data-btn-ok-class="btn delete-button btn-xs medium-button" pt:data-btn-cancel-label="No" pt:data-btn-cancel-icon="fa fa-mail-forward"
+                                        pt:data-btn-cancel-class="btn cancel-button btn-xs medium-button" pt:data-title="¿Esta seguro que desea eliminar?">
+                                        <p:ajax listener="#{profesoresBean.elim()}" process="@form" update="@form :ContRegi" oncomplete="INIT_OBJE();" />
+                                        <i class="fa fa-times"/> Eliminar
+                                    </h:outputLink>
+                                    </div>
+                                </div>
+                            </div>
+                        </h:form>
+                    </div>
+                </div>
+            </div>
+                <div class="col-md-8 col-xs-8" id="divTbl">
+                <div class="panel panel-default">
+                    <div class="box-header">Tabla de Datos</div>
+                    <div class="box-body">
+                        <h:panelGroup id="ContRegi">
+                            <h:dataTable pt:data-id="TablRegi" id="TablRegi" value="#{profesoresBean.listProf}"
+                                        var="fila" class="boottable" pt:data-toolbar="#toolbar"
+                                        styleClass="table-hover table-bordered table-condensed table-striped table-responsive"
+                                        pt:data-show-refresh="false" pt:data-show-toggle="false" pt:data-show-columns="false" 
+                                        pt:data-search="true" pt:data-pagination="true" pt:data-page-list="[5, 10, 20, 50]"
+                                        pt:data-click-to-select="true"  pt:data-select-item-name="radio"
+                                        pt:data-single-select="true">                                
+                               <h:column pt:data-field="state" pt:data-checkbox="true">
+                               </h:column>
+                               <h:column pt:data-align="right" pt:data-sortable="true" pt:data-field="id">
+                                   <f:facet name="header">Código</f:facet>
+                                   <h:outputText value="#{fila.codiProf}"/>
+                               </h:column>
+                               <h:column pt:data-sortable="true" pt:data-field="nomb">
+                                   <f:facet name="header">Nombre</f:facet>
+                                   <h:outputText value="#{fila.nombProf.concat(' ').concat(fila.apelProf)}"/>   
+                               </h:column>
+                               
+                               <h:column pt:data-sortable="true">
+                                   <f:facet name="header">Email</f:facet>
+                                   <h:outputText value="#{fila.mailProf}"/>
+                               </h:column>
+                               <h:column pt:data-sortable="true">
+                                   <f:facet name="header">Teléfono</f:facet> 
+                                   <h:outputText value="#{fila.teleProf}"/>
+                               </h:column>
+                               <h:column pt:data-sortable="true">
+                                   <f:facet name="header">Dirección</f:facet> 
+                                   <h:outputText value="#{fila.direPro}"/>
+                               </h:column>
+                            </h:dataTable>
+                        </h:panelGroup>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </ui:define>
+    </ui:composition>
+</html>
