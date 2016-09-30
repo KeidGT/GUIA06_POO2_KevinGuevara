@@ -59,7 +59,7 @@ public class LOG4J {
         }
     }
     //Fallos no críticos
-    public void warm(String mens){
+    public void warn(String mens){
         try{
             log.warn(mens);
         }
