@@ -7,6 +7,7 @@ package com.sv.udb.controlador;
 
 import com.sv.udb.ejb.AlumnosFacadeLocal;
 import com.sv.udb.modelo.Alumnos;
+import com.sv.udb.utils.LOG4J;
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -26,6 +27,7 @@ public class AlumnosBean implements Serializable{
     @EJB
     private AlumnosFacadeLocal FCDEAlum;    
     private Alumnos objeAlum;
+    private LOG4J log;
     private List<Alumnos> listAlum;
     private boolean guardar;
 
@@ -57,6 +59,7 @@ public class AlumnosBean implements Serializable{
     {
         this.limpForm();
         this.consTodo();
+        log = new LOG4J();
     }
     
     public void limpForm()
@@ -149,6 +152,8 @@ public class AlumnosBean implements Serializable{
         {
             this.objeAlum = FCDEAlum.find(codi);
             this.guardar = false;
+            log.info("Consultado a " + String.format("%s %s", this.objeAlum.getNombAlum(), this.objeAlum.getApelAlum()));
+            
             ctx.execute("setMessage('MESS_SUCC', 'Atención', 'Consultado a " + 
                     String.format("%s %s", this.objeAlum.getNombAlum(), this.objeAlum.getApelAlum()) + "')");
         }

@@ -13,7 +13,7 @@ $(document).ready(function() {
         {
             popout: true,
             onConfirm: function() {
-                //elimObje();
+                elimObje();
                 $('[data-toggle="confirmation-popout"]').confirmation('hide');
                 return false;
             },
