@@ -70,22 +70,22 @@ and open the template in the editor.
                                 <h:message for="horaFina" errorClass="field-error" />
                             </div>
                             <div class="input-group col-xs-12">
-                                <h:outputLabel  for="Grup" value="Grupo: "/>
-                                <h:selectOneMenu id="Grup" value="#{gruposBean.objeGrup.codiCurs}" class="form-control">
+                                <h:outputLabel  for="Curs" value="Curso: "/>
+                                <h:selectOneMenu id="Curs" value="#{gruposBean.objeGrup.codiCurs}" class="form-control">
                                     <f:selectItem pt:data-hidden="true" itemLabel="Seleccione..."/>
                                     <f:selectItems value="#{cursosBean.listCurs}" var="lst" itemLabel="#{lst.nombCurs}" itemValue="#{lst}"/>
                                     <f:converter converterId="PooConv"/>
                                 </h:selectOneMenu>
-                                <h:message for="Grup" errorClass="field-error" />
+                                <h:message for="Curs" errorClass="field-error" />
                             </div>
                             <div class="input-group col-xs-12">
-                                <h:outputLabel  for="alum" value="Alumno: "/>
-                                <h:selectOneMenu id="alum" value="#{gruposBean.objeGrup.codiProf}" class="form-control">
+                                <h:outputLabel  for="prof" value="Profesor: "/>
+                                <h:selectOneMenu id="prof" value="#{gruposBean.objeGrup.codiProf}" class="form-control">
                                     <f:selectItem pt:data-hidden="true" itemLabel="Seleccione..."/>
                                     <f:selectItems value="#{profesoresBean.listProf}" var="lst2" itemLabel="#{lst2.nombProf} #{lst2.apelProf}" itemValue="#{lst2}"/>
                                     <f:converter converterId="PooConv"/>
                                 </h:selectOneMenu>
-                                <h:message for="alum" errorClass="field-error" />
+                                <h:message for="prof" errorClass="field-error" />
                             </div>
                             <br/>
                             <div class="">
