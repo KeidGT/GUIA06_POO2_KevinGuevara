@@ -1,3 +1,4 @@
+
 .full-width{
     width: 100%;
 }
@@ -126,6 +127,59 @@
     text-align: center;
     margin: 0 auto;
 }
-.GT-logo:hover{
-   
+.samus-ship{
+    
+    position: absolute;
+    top: 370px;
+    left: -500px;
+    -webkit-animation: ship-animation 3s infinite;
+    -webkit-animation-delay: 0.5s; /* Chrome, Safari, Opera */
+    -moz-animation: ship-animation 3s infinite;
+    -moz-animation-delay: 0.5s; /* Mozilla */
+    animation: ship-animation 3s infinite;
+    animation-delay: 0.5s;   
 }
+.ridley{
+    
+    position: absolute;
+    top: 800px;
+    left: 700px;
+    
+    -webkit-animation: ridley-animation 3s infinite;
+    -webkit-animation-delay: 0s; 
+    -moz-animation: ridley-animation 3s infinite;
+    -moz-animation-delay: 0s; 
+    animation: ridley-animation 3s infinite;
+    animation-delay: 0s;   
+}
+@keyframes ship-animation {
+    0%   {left:-500px; transform: rotateZ(0)deg);}
+    40%  {left:200px; top: 370px;transform: rotateZ(-2deg); box-shadow:none;}
+    45%  {
+            left:300px; 
+            top: 370px;transform: 
+            rotateZ(-5deg);
+            border-radius: 0px 200px 200px 0px;
+            box-shadow: inset -10px 0px 1px 0px rgba(255, 255, 255, 0.5),
+                inset -8px 0px 1px 0px rgba(255, 115, 0, 0.1),
+                inset -6px 0px 1px 0px rgba(0, 22, 255, 0.2),
+                inset -4px 0px 1px 0px rgba(255, 0, 0, 0.3);}
+    50%  {left:500px; top: 370px;transform: rotateZ(-10deg);}
+    100% {left:2000px; top: 0px;}
+}
+@keyframes ridley-animation {
+    0%   {top: 800px;left: 700px;}
+    50%  {left:900px; top: 200px;}
+    75% {left:2000px; top: 0px;}
+    100% {left:2000px; top: 0px;}
+}
+/*@-webkit-keyframes example {
+    0%   {left:-1000px;-webkit-transform: rotate(0deg);}
+    50%  {left:10px; top: 370px; -webkit-transform: rotateZ(45deg);}
+    100% {left:2000px; top: 0px;}
+}
+@-moz-keyframes example {
+    0%   {left:-1000px; -moz-transform: rotate(0deg);}
+    50%  {left:10px; top: 370px; -moz-transform: rotateZ(45deg);}
+    100% {left:2000px; top: 0px;}
+}*/
