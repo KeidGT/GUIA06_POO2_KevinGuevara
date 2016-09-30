@@ -7,6 +7,7 @@ package com.sv.udb.controlador;
 
 import com.sv.udb.ejb.GruposAlumnosFacadeLocal;
 import com.sv.udb.modelo.GruposAlumnos;
+import com.sv.udb.utils.LOG4J;
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -28,7 +29,7 @@ public class GruposAlumnosBean implements Serializable{
     private GruposAlumnos objeGrupAlum;
     private List<GruposAlumnos> listGrupAlum;
     private boolean guardar;
-    
+    private LOG4J log;
     /**
      * Creates a new instance of GruposAlumnosBean
      */
@@ -65,6 +66,7 @@ public class GruposAlumnosBean implements Serializable{
     {
         this.limpForm();
         this.consTodo();
+        log = new LOG4J();
     }
     
     public void limpForm()
@@ -81,11 +83,13 @@ public class GruposAlumnosBean implements Serializable{
             FCDEGruposAlumnos.create(this.objeGrupAlum);
             this.listGrupAlum.add(this.objeGrupAlum);
             this.limpForm();
+            log.info("Alumno "+objeGrupAlum.getCodiAlum().getNombAlum()+" "+objeGrupAlum.getCodiAlum().getApelAlum()+" Asignado en el Grupo "+ " "+objeGrupAlum.getCodiGrup().getNombGrup()+", Registro Realizado");
             ctx.execute("setMessage('MESS_SUCC', 'Atención', 'Datos guardados')");
         }
         catch(Exception ex)
         {
             ctx.execute("setMessage('MESS_ERRO', 'Atención', 'Error al guardar ')");
+            log.error("Error al Registrar Alumno en Grupo");
         }
         finally
         {
@@ -102,10 +106,12 @@ public class GruposAlumnosBean implements Serializable{
             FCDEGruposAlumnos.edit(this.objeGrupAlum);
             this.listGrupAlum.add(this.objeGrupAlum); //Agrega el objeto modificado
             ctx.execute("setMessage('MESS_SUCC', 'Atención', 'Datos Modificados')");
+            log.info("Alumno "+objeGrupAlum.getCodiAlum().getNombAlum()+" "+objeGrupAlum.getCodiAlum().getApelAlum()+" Asignado en el Grupo "+ " "+objeGrupAlum.getCodiGrup().getNombGrup()+", Registro Modificado");
         }
         catch(Exception ex)
         {
             ctx.execute("setMessage('MESS_ERRO', 'Atención', 'Error al modificar ')");
+            log.error("Error al Modificar Alumno en Grupo");
         }
         finally
         {
@@ -122,10 +128,12 @@ public class GruposAlumnosBean implements Serializable{
             this.listGrupAlum.remove(this.objeGrupAlum);
             this.limpForm();
             ctx.execute("setMessage('MESS_SUCC', 'Atención', 'Datos Eliminados')");
+            log.info("Alumno "+objeGrupAlum.getCodiAlum().getNombAlum()+" "+objeGrupAlum.getCodiAlum().getApelAlum()+" Asignado en el Grupo "+ " "+objeGrupAlum.getCodiGrup().getNombGrup()+", Registro Eliminado");
         }
         catch(Exception ex)
         {
             ctx.execute("setMessage('MESS_ERRO', 'Atención', 'Error al eliminar')");
+            log.error("Error al Eliminar Alumno en Grupo");
         }
         finally
         {
@@ -157,10 +165,12 @@ public class GruposAlumnosBean implements Serializable{
             this.objeGrupAlum = FCDEGruposAlumnos.find(codi);
             this.guardar = false;
             ctx.execute("setMessage('MESS_SUCC', 'Atención', 'Consultado')");
+            log.info("Alumno "+objeGrupAlum.getCodiAlum().getNombAlum()+" "+objeGrupAlum.getCodiAlum().getApelAlum()+" Asignado en el Grupo "+ " "+objeGrupAlum.getCodiGrup().getNombGrup()+", Registro Consultado");
         }
         catch(Exception ex)
         {
             ctx.execute("setMessage('MESS_ERRO', 'Atención', 'Error al consultar')");
+            log.error("Error al Consultar Alumno asignado a Grupo");
         }
         finally
         {

@@ -25,6 +25,17 @@ public class LOG4J {
         }
         
     }
+    //El mas básico, equivalente a un System.out.println
+    public void trace(String mens){
+        try{
+            log.trace(mens);
+        }
+        catch(Exception e)
+        {
+            System.out.println("Error con LOG: "+e);
+        }
+        
+    }
     //Muy util para procesos, para valores, variables
     public void debug(String mens){
         try{

@@ -76,10 +76,12 @@ public class AlumnosBean implements Serializable{
             FCDEAlum.create(this.objeAlum);
             this.listAlum.add(this.objeAlum);
             this.limpForm();
+            log.info("Alumno Registrado: "+objeAlum.getNombAlum()+" "+objeAlum.getApelAlum());
             ctx.execute("setMessage('MESS_SUCC', 'Atención', 'Datos guardados')");
         }
         catch(Exception ex)
         {
+            log.error("Error al Registrar Alumno");
             ctx.execute("setMessage('MESS_ERRO', 'Atención', 'Error al guardar ')");
         }
         finally
@@ -96,10 +98,12 @@ public class AlumnosBean implements Serializable{
             this.listAlum.remove(this.objeAlum); //Limpia el objeto viejo
             FCDEAlum.edit(this.objeAlum);
             this.listAlum.add(this.objeAlum); //Agrega el objeto modificado
+            log.info("Alumno Modificado: "+objeAlum.getNombAlum()+" "+objeAlum.getApelAlum());
             ctx.execute("setMessage('MESS_SUCC', 'Atención', 'Datos Modificados')");
         }
         catch(Exception ex)
         {
+            log.error("Error al Modificar Alumno");
             ctx.execute("setMessage('MESS_ERRO', 'Atención', 'Error al modificar ')");
         }
         finally
@@ -116,10 +120,12 @@ public class AlumnosBean implements Serializable{
             FCDEAlum.remove(this.objeAlum);
             this.listAlum.remove(this.objeAlum);
             this.limpForm();
+            log.info("Alumno Eliminado: "+objeAlum.getNombAlum()+" "+objeAlum.getApelAlum());
             ctx.execute("setMessage('MESS_SUCC', 'Atención', 'Datos Eliminados')");
         }
         catch(Exception ex)
         {
+            log.error("Error al Eliminar Alumno");
             ctx.execute("setMessage('MESS_ERRO', 'Atención', 'Error al eliminar')");
         }
         finally
@@ -152,13 +158,13 @@ public class AlumnosBean implements Serializable{
         {
             this.objeAlum = FCDEAlum.find(codi);
             this.guardar = false;
-            log.info("Consultado a " + String.format("%s %s", this.objeAlum.getNombAlum(), this.objeAlum.getApelAlum()));
-            
+            log.info("Alumno Consultado: " + String.format("%s %s", this.objeAlum.getNombAlum(), this.objeAlum.getApelAlum()));
             ctx.execute("setMessage('MESS_SUCC', 'Atención', 'Consultado a " + 
                     String.format("%s %s", this.objeAlum.getNombAlum(), this.objeAlum.getApelAlum()) + "')");
         }
         catch(Exception ex)
         {
+            log.error("Error al Consultar Aumno");
             ctx.execute("setMessage('MESS_ERRO', 'Atención', 'Error al consultar')");
         }
         finally

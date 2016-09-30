@@ -9,6 +9,7 @@ import com.sv.udb.ejb.AlumnosFacadeLocal;
 import com.sv.udb.ejb.ProfesoresFacadeLocal;
 import com.sv.udb.modelo.Alumnos;
 import com.sv.udb.modelo.Profesores;
+import com.sv.udb.utils.LOG4J;
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -30,7 +31,7 @@ public class ProfesoresBean implements Serializable{
     private Profesores objeProf;
     private List<Profesores> listProf;
     private boolean guardar;
-
+    private LOG4J log;
     public Profesores getObjeprof() {
         return objeProf;
     }
@@ -59,6 +60,7 @@ public class ProfesoresBean implements Serializable{
     {
         this.limpForm();
         this.consTodo();
+        log = new LOG4J();
     }
     
     public void limpForm()
@@ -75,10 +77,12 @@ public class ProfesoresBean implements Serializable{
             FCDEProf.create(this.objeProf);
             this.listProf.add(this.objeProf);
             this.limpForm();
+            log.info("Profesor Registrado: "+objeProf.getNombProf()+" "+objeProf.getApelProf());
             ctx.execute("setMessage('MESS_SUCC', 'Atención', 'Datos guardados')");
         }
         catch(Exception ex)
         {
+            log.error("Error al Registrar Profesor");
             ctx.execute("setMessage('MESS_ERRO', 'Atención', 'Error al guardar ')");
         }
         finally
@@ -95,10 +99,12 @@ public class ProfesoresBean implements Serializable{
             this.listProf.remove(this.objeProf); //Limpia el objeto viejo
             FCDEProf.edit(this.objeProf);
             this.listProf.add(this.objeProf); //Agrega el objeto modificado
+            log.info("Profesor Modificado: "+objeProf.getNombProf()+" "+objeProf.getApelProf());
             ctx.execute("setMessage('MESS_SUCC', 'Atención', 'Datos Modificados')");
         }
         catch(Exception ex)
         {
+            log.error("Error al Modificar Profesor");
             ctx.execute("setMessage('MESS_ERRO', 'Atención', 'Error al modificar ')");
         }
         finally
@@ -115,10 +121,12 @@ public class ProfesoresBean implements Serializable{
             FCDEProf.remove(this.objeProf);
             this.listProf.remove(this.objeProf);
             this.limpForm();
+            log.info("Profesor Eliminado: "+objeProf.getNombProf()+" "+objeProf.getApelProf());
             ctx.execute("setMessage('MESS_SUCC', 'Atención', 'Datos Eliminados')");
         }
         catch(Exception ex)
         {
+            log.error("Error al Eliminar Profesor");
             ctx.execute("setMessage('MESS_ERRO', 'Atención', 'Error al eliminar')");
         }
         finally
@@ -151,11 +159,13 @@ public class ProfesoresBean implements Serializable{
         {
             this.objeProf = FCDEProf.find(codi);
             this.guardar = false;
+            log.info("Profesor Consultado: "+objeProf.getNombProf()+" "+objeProf.getApelProf());
             ctx.execute("setMessage('MESS_SUCC', 'Atención', 'Consultado a " + 
                     String.format("%s %s", this.objeProf.getNombProf(), this.objeProf.getApelProf ()) + "')");
         }
         catch(Exception ex)
         {
+            log.error("Error al Consultar Profesor");
             ctx.execute("setMessage('MESS_ERRO', 'Atención', 'Error al consultar')");
         }
         finally

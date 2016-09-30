@@ -7,6 +7,7 @@ package com.sv.udb.controlador;
 
 import com.sv.udb.ejb.CursosFacadeLocal;
 import com.sv.udb.modelo.Cursos;
+import com.sv.udb.utils.LOG4J;
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -26,6 +27,7 @@ public class CursosBean implements Serializable{
     @EJB
     private CursosFacadeLocal FCDECurs;    
     private Cursos objeCurs;
+    private LOG4J log;
     private List<Cursos> listCurs;
     private boolean guardar;
 
@@ -57,6 +59,7 @@ public class CursosBean implements Serializable{
     {
         this.limpForm();
         this.consTodo();
+        log = new LOG4J();
     }
     
     public void limpForm()
@@ -73,10 +76,12 @@ public class CursosBean implements Serializable{
             FCDECurs.create(this.objeCurs);
             this.listCurs.add(this.objeCurs);
             this.limpForm();
+            log.info("Curso Registrado: "+objeCurs.getNombCurs());
             ctx.execute("setMessage('MESS_SUCC', 'Atención', 'Datos guardados')");
         }
         catch(Exception ex)
         {
+            log.error("Error al Registrar Curso");
             ctx.execute("setMessage('MESS_ERRO', 'Atención', 'Error al guardar ')");
         }
         finally
@@ -93,10 +98,12 @@ public class CursosBean implements Serializable{
             this.listCurs.remove(this.objeCurs); //Limpia el objeto viejo
             FCDECurs.edit(this.objeCurs);
             this.listCurs.add(this.objeCurs); //Agrega el objeto modificado
+            log.info("Curso Modificado: "+objeCurs.getNombCurs());
             ctx.execute("setMessage('MESS_SUCC', 'Atención', 'Datos Modificados')");
         }
         catch(Exception ex)
         {
+            log.error("Error al Modificar Curso");
             ctx.execute("setMessage('MESS_ERRO', 'Atención', 'Error al modificar ')");
         }
         finally
@@ -113,10 +120,12 @@ public class CursosBean implements Serializable{
             FCDECurs.remove(this.objeCurs);
             this.listCurs.remove(this.objeCurs);
             this.limpForm();
+            log.info("Curso Eliminado: "+objeCurs.getNombCurs());
             ctx.execute("setMessage('MESS_SUCC', 'Atención', 'Datos Eliminados')");
         }
         catch(Exception ex)
         {
+            log.error("Error al Eliminar Curso");
             ctx.execute("setMessage('MESS_ERRO', 'Atención', 'Error al eliminar')");
         }
         finally
@@ -149,10 +158,12 @@ public class CursosBean implements Serializable{
         {
             this.objeCurs = FCDECurs.find(codi);
             this.guardar = false;
+            log.info("Curso Consultado: "+objeCurs.getNombCurs());
             ctx.execute("setMessage('MESS_SUCC', 'Atención', 'Consultado a " + this.objeCurs.getNombCurs() + "')");
         }
         catch(Exception ex)
         {
+            log.error("Error al Consultar Curso");
             ctx.execute("setMessage('MESS_ERRO', 'Atención', 'Error al consultar')");
         }
         finally
