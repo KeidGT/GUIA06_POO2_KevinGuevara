@@ -25,7 +25,6 @@ $(document).ready(function() {
         });
         return false;
     };
-    responsive();
     INIT_OBJE();
 });
 function INIT_OBJE()
@@ -35,40 +34,6 @@ function INIT_OBJE()
     //ocultarCodigo();
     //setTimeout('ocultarCodigo()',800);
     
-}
-window.onresize = function(event) {
-    responsive();
-};
-function responsive(){
-    var ancho = document.documentElement.clientWidth; 
-    if(ancho > 660){
-        $("#divFrm").addClass("col-md-4");
-        $("#divFrm").addClass("col-xs-4");
-        $("#divTbl").addClass("col-md-8");
-        $("#divTbl").addClass("col-xs-8");
-        
-        $("#divFrm").removeClass("col-md-12");
-        $("#divFrm").removeClass("col-xs-12");
-        $("#divTbl").removeClass("col-md-12");
-        $("#divTbl").removeClass("col-xs-12");
-        
-        $("div.input-group").removeClass("col-lg-12");
-        $("div.input-group").addClass("col-md-12");
-        
-    }else if(ancho <= 660){
-        $("#divFrm").removeClass("col-md-4");
-        $("#divFrm").removeClass("col-xs-4");
-        $("#divTbl").removeClass("col-md-8");
-        $("#divTbl").removeClass("col-xs-8");
-        
-        $("#divFrm").addClass("col-md-12");
-        $("#divFrm").addClass("col-xs-12");
-        $("#divTbl").addClass("col-md-12");
-        $("#divTbl").addClass("col-xs-12");
-        
-        $("div.input-group").removeClass("col-md-12");
-        $("div.input-group").addClass("col-lg-12");
-    }
 }
 /*
 function ocultarCodigo(){
