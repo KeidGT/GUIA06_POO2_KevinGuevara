@@ -77,9 +77,9 @@ public class GruposBean implements Serializable{
         {
             FCDEGrupos.create(this.objeGrup);
             this.listGrup.add(this.objeGrup);
-            this.limpForm();
             log.info("Grupo Registrado: "+objeGrup.getNombGrup());
             ctx.execute("setMessage('MESS_SUCC', 'Atención', 'Datos guardados')");
+            this.limpForm();
         }
         catch(Exception ex)
         {
@@ -102,6 +102,7 @@ public class GruposBean implements Serializable{
             this.listGrup.add(this.objeGrup); //Agrega el objeto modificado
             log.info("Grupo Modificado: "+objeGrup.getNombGrup());
             ctx.execute("setMessage('MESS_SUCC', 'Atención', 'Datos Modificados')");
+            this.limpForm();
         }
         catch(Exception ex)
         {
@@ -121,9 +122,9 @@ public class GruposBean implements Serializable{
         {
             FCDEGrupos.remove(this.objeGrup);
             this.listGrup.remove(this.objeGrup);
-            this.limpForm();
             log.info("Grupo Eliminado: "+objeGrup.getNombGrup());
             ctx.execute("setMessage('MESS_SUCC', 'Atención', 'Datos Eliminados')");
+            this.limpForm();
         }
         catch(Exception ex)
         {

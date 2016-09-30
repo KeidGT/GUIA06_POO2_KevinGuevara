@@ -75,9 +75,9 @@ public class AlumnosBean implements Serializable{
         {
             FCDEAlum.create(this.objeAlum);
             this.listAlum.add(this.objeAlum);
-            this.limpForm();
             log.info("Alumno Registrado: "+objeAlum.getNombAlum()+" "+objeAlum.getApelAlum());
             ctx.execute("setMessage('MESS_SUCC', 'Atención', 'Datos guardados')");
+            this.limpForm();
         }
         catch(Exception ex)
         {
@@ -100,6 +100,7 @@ public class AlumnosBean implements Serializable{
             this.listAlum.add(this.objeAlum); //Agrega el objeto modificado
             log.info("Alumno Modificado: "+objeAlum.getNombAlum()+" "+objeAlum.getApelAlum());
             ctx.execute("setMessage('MESS_SUCC', 'Atención', 'Datos Modificados')");
+            this.limpForm();
         }
         catch(Exception ex)
         {
@@ -119,9 +120,9 @@ public class AlumnosBean implements Serializable{
         {
             FCDEAlum.remove(this.objeAlum);
             this.listAlum.remove(this.objeAlum);
-            this.limpForm();
             log.info("Alumno Eliminado: "+objeAlum.getNombAlum()+" "+objeAlum.getApelAlum());
             ctx.execute("setMessage('MESS_SUCC', 'Atención', 'Datos Eliminados')");
+            this.limpForm();
         }
         catch(Exception ex)
         {

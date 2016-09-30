@@ -82,9 +82,9 @@ public class GruposAlumnosBean implements Serializable{
         {
             FCDEGruposAlumnos.create(this.objeGrupAlum);
             this.listGrupAlum.add(this.objeGrupAlum);
-            this.limpForm();
             log.info("Alumno "+objeGrupAlum.getCodiAlum().getNombAlum()+" "+objeGrupAlum.getCodiAlum().getApelAlum()+" Asignado en el Grupo "+ " "+objeGrupAlum.getCodiGrup().getNombGrup()+", Registro Realizado");
             ctx.execute("setMessage('MESS_SUCC', 'Atención', 'Datos guardados')");
+            this.limpForm();
         }
         catch(Exception ex)
         {
@@ -107,6 +107,7 @@ public class GruposAlumnosBean implements Serializable{
             this.listGrupAlum.add(this.objeGrupAlum); //Agrega el objeto modificado
             ctx.execute("setMessage('MESS_SUCC', 'Atención', 'Datos Modificados')");
             log.info("Alumno "+objeGrupAlum.getCodiAlum().getNombAlum()+" "+objeGrupAlum.getCodiAlum().getApelAlum()+" Asignado en el Grupo "+ " "+objeGrupAlum.getCodiGrup().getNombGrup()+", Registro Modificado");
+            limpForm();
         }
         catch(Exception ex)
         {
@@ -126,9 +127,9 @@ public class GruposAlumnosBean implements Serializable{
         {
             FCDEGruposAlumnos.remove(this.objeGrupAlum);
             this.listGrupAlum.remove(this.objeGrupAlum);
-            this.limpForm();
             ctx.execute("setMessage('MESS_SUCC', 'Atención', 'Datos Eliminados')");
             log.info("Alumno "+objeGrupAlum.getCodiAlum().getNombAlum()+" "+objeGrupAlum.getCodiAlum().getApelAlum()+" Asignado en el Grupo "+ " "+objeGrupAlum.getCodiGrup().getNombGrup()+", Registro Eliminado");
+            this.limpForm();
         }
         catch(Exception ex)
         {
@@ -159,7 +160,7 @@ public class GruposAlumnosBean implements Serializable{
     public void cons()
     {
         RequestContext ctx = RequestContext.getCurrentInstance(); //Capturo el contexto de la página
-        int codi = Integer.parseInt(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("codiGrupAlumPara"));
+        int codi = Integer.parseInt(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("codiObjePara"));
         try
         {
             this.objeGrupAlum = FCDEGruposAlumnos.find(codi);

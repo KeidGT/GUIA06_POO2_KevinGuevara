@@ -75,9 +75,9 @@ public class CursosBean implements Serializable{
         {
             FCDECurs.create(this.objeCurs);
             this.listCurs.add(this.objeCurs);
-            this.limpForm();
             log.info("Curso Registrado: "+objeCurs.getNombCurs());
             ctx.execute("setMessage('MESS_SUCC', 'Atención', 'Datos guardados')");
+            this.limpForm();
         }
         catch(Exception ex)
         {
@@ -100,6 +100,7 @@ public class CursosBean implements Serializable{
             this.listCurs.add(this.objeCurs); //Agrega el objeto modificado
             log.info("Curso Modificado: "+objeCurs.getNombCurs());
             ctx.execute("setMessage('MESS_SUCC', 'Atención', 'Datos Modificados')");
+            this.limpForm();
         }
         catch(Exception ex)
         {
@@ -119,9 +120,9 @@ public class CursosBean implements Serializable{
         {
             FCDECurs.remove(this.objeCurs);
             this.listCurs.remove(this.objeCurs);
-            this.limpForm();
             log.info("Curso Eliminado: "+objeCurs.getNombCurs());
             ctx.execute("setMessage('MESS_SUCC', 'Atención', 'Datos Eliminados')");
+            this.limpForm();
         }
         catch(Exception ex)
         {
