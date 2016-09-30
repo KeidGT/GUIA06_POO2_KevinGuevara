@@ -1,6 +1,7 @@
-create table log(
-codi_log int not null primary key auto_increment,
-tipo_log varchar (5),
-fech_log datetime default now(),
-mens_log varchar(50)
-)ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+CREATE TABLE AppLog(
+USER_ID VARCHAR(20)    NOT NULL,
+DATED   varchar(50)    NOT NULL,
+LOGGER  VARCHAR(50)    NOT NULL,
+LEVEL   VARCHAR(10)    NOT NULL,
+MESSAGE VARCHAR(1000)  NOT NULL
+)ENGINE=InnoDB CHARSET=utf8;
