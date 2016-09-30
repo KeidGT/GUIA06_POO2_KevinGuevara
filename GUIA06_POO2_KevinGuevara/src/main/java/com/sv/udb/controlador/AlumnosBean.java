@@ -165,7 +165,7 @@ public class AlumnosBean implements Serializable{
         }
         catch(Exception ex)
         {
-            log.error("Error al Consultar Aumno");
+            log.error("Error al Consultar Alumno");
             ctx.execute("setMessage('MESS_ERRO', 'Atención', 'Error al consultar')");
         }
         finally

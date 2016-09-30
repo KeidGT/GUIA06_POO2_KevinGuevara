@@ -16,7 +16,7 @@ public class LOG4J {
     private static Logger log = Logger.getLogger(LOG4J.class);
     public LOG4J() {
         try{
-            PropertyConfigurator.configure(this.getClass().getClassLoader().getResource("/log4j.properties").getPath());;
+            PropertyConfigurator.configure(this.getClass().getClassLoader().getResource("/log4j.properties").getPath());
             
         }
         catch(Exception e)
