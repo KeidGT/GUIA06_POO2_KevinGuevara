@@ -82,7 +82,7 @@ public class GruposAlumnosBean implements Serializable{
         {
             FCDEGruposAlumnos.create(this.objeGrupAlum);
             this.listGrupAlum.add(this.objeGrupAlum);
-            log.info("Alumno "+objeGrupAlum.getCodiAlum().getNombAlum()+" "+objeGrupAlum.getCodiAlum().getApelAlum()+" Asignado en el Grupo "+ " "+objeGrupAlum.getCodiGrup().getNombGrup()+", Registro Realizado");
+            log.info("Alumno "+this.objeGrupAlum.getCodiAlum().getNombAlum()+" "+this.objeGrupAlum.getCodiAlum().getApelAlum()+" Asignado en el Grupo "+ " "+this.objeGrupAlum.getCodiGrup().getNombGrup()+", Registro Realizado");
             ctx.execute("setMessage('MESS_SUCC', 'Atención', 'Datos guardados')");
             this.limpForm();
         }
