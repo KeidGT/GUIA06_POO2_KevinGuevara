@@ -7,30 +7,13 @@ $(document).ready(function() {
         });
         return false;
     };
-    //Eliminar
-    $.fn.funcElimRegi = function() {
-        $(this).confirmation(
-        {
-            popout: true,
-            onConfirm: function() {
-                elimObje();
-                $('[data-toggle="confirmation-popout"]').confirmation('hide');
-                return false;
-            },
-            onCancel: function()
-            {
-                $('[data-toggle="confirmation-popout"]').confirmation('hide');
-                return false;
-            }
-        });
-        return false;
-    };
+    
     INIT_OBJE();
 });
 function INIT_OBJE()
 {
     $("#TablRegi").initBootTable();
-    $("#FormRegi\\:btonElim").funcElimRegi();
+    $("#FormRegi\\:btonElim").confirmation({container: '#FormRegi'});
     //ocultarCodigo();
     //setTimeout('ocultarCodigo()',800);
     

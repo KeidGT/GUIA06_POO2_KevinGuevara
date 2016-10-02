@@ -91,12 +91,13 @@ and open the template in the editor.
                                     </h:commandLink>  
                                     </div>
                                     <div class="r-col6">
-                                        <h:outputLink id="btonElim" class="btn delete-button" rendered="#{!gruposAlumnosBean.guardar}" 
-                                        pt:data-toggle="confirmation" pt:data-btn-ok-label="Sí" pt:data-btn-ok-icon="fa fa-times"
-                                        pt:data-btn-ok-class="btn delete-button btn-xs medium-button" pt:data-btn-cancel-label="No" pt:data-btn-cancel-icon="fa fa-mail-forward"
-                                        pt:data-btn-cancel-class="btn cancel-button btn-xs medium-button" pt:data-title="¿Esta seguro que desea eliminar?">
-                                        <i class="fa fa-times"/> Eliminar
-                                    </h:outputLink>
+                                        <h:outputLink id="btonElim" class="btn delete-button" rendered="#{!gruposAlumnosBean.guardar}" value="#" pt:data-placement="top"
+                                                    pt:data-toggle="confirmation" pt:data-btn-ok-label="Sí" pt:data-btn-ok-icon="fa fa-times"
+                                                    pt:data-btn-ok-class="btn delete-button btn-xs medium-button" pt:data-btn-cancel-label="No" pt:data-btn-cancel-icon="fa fa-mail-forward"
+                                                    pt:data-btn-cancel-class="btn cancel-button btn-xs medium-button" pt:data-title="¿Esta seguro que desea eliminar?"
+                                                    pt:data-on-confirm="elimObje"><!--Estandar elimObje para usar un solo javascript-->
+                                          <i class="fa fa-times"/> Eliminar
+                                      </h:outputLink>
                                     </div>
                                 </div>
                             </div>
