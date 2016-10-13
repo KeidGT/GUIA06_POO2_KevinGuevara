@@ -5,7 +5,7 @@
  */
 package com.sv.udb.ejb;
 
-import com.sv.udb.modelo.Alumnos;
+import com.sv.udb.modelo.Roles;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -15,7 +15,7 @@ import javax.persistence.PersistenceContext;
  * @author Laboratorio
  */
 @Stateless
-public class AlumnosFacade extends AbstractFacade<Alumnos> implements AlumnosFacadeLocal {
+public class RolesFacade extends AbstractFacade<Roles> implements RolesFacadeLocal {
 
     @PersistenceContext(unitName = "POOPU")
     private EntityManager em;
@@ -25,8 +25,8 @@ public class AlumnosFacade extends AbstractFacade<Alumnos> implements AlumnosFac
         return em;
     }
 
-    public AlumnosFacade() {
-        super(Alumnos.class);
+    public RolesFacade() {
+        super(Roles.class);
     }
     
 }

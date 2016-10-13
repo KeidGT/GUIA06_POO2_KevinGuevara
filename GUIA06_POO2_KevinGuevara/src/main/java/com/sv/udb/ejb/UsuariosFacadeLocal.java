@@ -5,7 +5,7 @@
  */
 package com.sv.udb.ejb;
 
-import com.sv.udb.modelo.Alumnos;
+import com.sv.udb.modelo.Usuarios;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -14,19 +14,19 @@ import javax.ejb.Local;
  * @author Laboratorio
  */
 @Local
-public interface AlumnosFacadeLocal {
+public interface UsuariosFacadeLocal {
 
-    void create(Alumnos alumnos);
+    void create(Usuarios usuarios);
 
-    void edit(Alumnos alumnos);
+    void edit(Usuarios usuarios);
 
-    void remove(Alumnos alumnos);
+    void remove(Usuarios usuarios);
 
-    Alumnos find(Object id);
+    Usuarios find(Object id);
 
-    List<Alumnos> findAll();
+    List<Usuarios> findAll();
 
-    List<Alumnos> findRange(int[] range);
+    List<Usuarios> findRange(int[] range);
 
     int count();
     

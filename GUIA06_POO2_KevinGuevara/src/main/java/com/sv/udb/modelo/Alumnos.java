@@ -12,6 +12,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -44,6 +45,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Alumnos.findByDireAlum", query = "SELECT a FROM Alumnos a WHERE a.direAlum = :direAlum"),
     @NamedQuery(name = "Alumnos.findByGeneAlum", query = "SELECT a FROM Alumnos a WHERE a.geneAlum = :geneAlum")})
 public class Alumnos implements Serializable {
+
+    @OneToMany(mappedBy = "codiAlum", fetch = FetchType.LAZY)
+    private List<Usuarios> usuariosList;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -202,6 +206,15 @@ public class Alumnos implements Serializable {
     @Override
     public String toString() {
         return "com.sv.udb.modelo.Alumnos[ codiAlum=" + codiAlum + " ]";
+    }
+
+    @XmlTransient
+    public List<Usuarios> getUsuariosList() {
+        return usuariosList;
+    }
+
+    public void setUsuariosList(List<Usuarios> usuariosList) {
+        this.usuariosList = usuariosList;
     }
     
 }
