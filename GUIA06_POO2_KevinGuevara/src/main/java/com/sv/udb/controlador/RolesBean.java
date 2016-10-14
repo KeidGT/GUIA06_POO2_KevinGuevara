@@ -79,10 +79,7 @@ public class RolesBean implements Serializable{
         {
             log.error("Error al Registrar Roles");
             ctx.execute("setMessage('MESS_ERRO', 'Atención', 'Error al guardar ')");
-        }
-        finally
-        {
-            
+            ex.printStackTrace();
         }
     }
     
@@ -102,10 +99,7 @@ public class RolesBean implements Serializable{
         {
             log.error("Error al Modificar Alumno");
             ctx.execute("setMessage('MESS_ERRO', 'Atención', 'Error al modificar ')");
-        }
-        finally
-        {
-            
+            ex.printStackTrace();
         }
     }
     
@@ -124,10 +118,7 @@ public class RolesBean implements Serializable{
         {
             log.error("Error al Eliminar Alumno");
             ctx.execute("setMessage('MESS_ERRO', 'Atención', 'Error al eliminar')");
-        }
-        finally
-        {
-            
+            ex.printStackTrace();
         }
     }
     
@@ -141,10 +132,6 @@ public class RolesBean implements Serializable{
         {
             ex.printStackTrace();
         }
-        finally
-        {
-            
-        }
     }
     
     public void cons()
@@ -153,19 +140,18 @@ public class RolesBean implements Serializable{
         int codi = Integer.parseInt(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("codiObjePara"));
         try
         {
-            this.objeRole = FCDERole.find(codi);
+            System.out.print("Antes error");
+            this.objeRole = (Roles)FCDERole.find(codi);
+            System.out.print("Pos error");
             this.guardar = false;
-            log.info("Alumno Consultado: " + this.objeRole.getDescRole());
+            log.info("Roles Consultado: " + this.objeRole.getDescRole());
             ctx.execute("setMessage('MESS_SUCC', 'Atención', 'Consultado a " +this.objeRole.getDescRole() + "')");
         }
         catch(Exception ex)
         {
             log.error("Error al Consultar Alumno");
             ctx.execute("setMessage('MESS_ERRO', 'Atención', 'Error al consultar')");
-        }
-        finally
-        {
-            
+            ex.printStackTrace();
         }
     }
 }

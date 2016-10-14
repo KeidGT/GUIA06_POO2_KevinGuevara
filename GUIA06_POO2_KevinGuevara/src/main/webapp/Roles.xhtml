@@ -42,7 +42,7 @@ and open the template in the editor.
                             <h:inputHidden id="codi" value="#{rolesBean.objeRole.codiRole}" />
                             <div class="input-group col-xs-12">
                                 <h:outputLabel  for="role" value="Roles "/>
-                                <h:selectOneMenu id="role" value="#{rolesBean.objeRole.codiRole}" class="form-control">
+                                <h:selectOneMenu id="role" value="#{rolesBean.objeRole.refeRole}" class="form-control">
                                     <f:selectItem pt:data-hidden="true" itemLabel="Seleccione..."/>
                                     <f:selectItems value="#{rolesBean.listRole}" var="lst" itemLabel="#{lst.descRole}" itemValue="#{lst}"/>
                                     <f:converter converterId="PooConv"/>
